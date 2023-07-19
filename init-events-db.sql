@@ -54,7 +54,7 @@ CREATE FUNCTION emit_command()
   LANGUAGE PLPGSQL
 AS $$
 BEGIN
-  PERFORM pg_notify('command', concat_ws(',', NEW.idx, NEW.command_id, NEW.status));
+  PERFORM pg_notify('command', concat_ws(',', NEW.idx, NEW.command_id, NEW.status, replace(NEW.updated::TEXT, ' ', 'T')));
   RETURN NEW;
 END;
 $$;
